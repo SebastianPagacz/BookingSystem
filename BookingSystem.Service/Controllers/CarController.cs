@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookingSystem.Service.Controllers
+namespace BookingSystem.Service.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CarController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CarController : ControllerBase
-    {
-    }
 }
