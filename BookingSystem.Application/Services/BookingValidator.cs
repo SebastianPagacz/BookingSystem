@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using BookingSystem.Domain.BookingExceptions;
+using BookingSystem.Domain.Exceptions.BookingExceptions;
 
 namespace BookingSystem.Application.Services;
 

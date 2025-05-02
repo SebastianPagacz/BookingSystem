@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookingSystem.Application.Services;
 
-internal interface IBookingValidator
+public interface IBookingValidator
 {
     bool ValidateDates(DateTime startDate, DateTime endDate);
 }

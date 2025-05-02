@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingSystem.Domain.BookingExceptions;
+namespace BookingSystem.Domain.Exceptions.BookingExceptions;
 
 public class InvalidDateException : Exception
 {

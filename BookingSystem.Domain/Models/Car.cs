@@ -10,7 +10,7 @@ public class Car : BaseModel
 {
     public string Brand { get; set; } = string.Empty;
     public string Model { get; set; } = string.Empty;
-    public DateTime Year { get; set; }
+    public string Year { get; set; } = string.Empty;
     public string LicensePlate { get; set; } = string.Empty;
     public bool IsDeleted { get; set; } = false;
     public bool IsAvailable { get; set; } = false;
