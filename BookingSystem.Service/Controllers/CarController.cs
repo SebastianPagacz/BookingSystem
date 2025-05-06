@@ -1,4 +1,5 @@
-﻿using BookingSystem.Domain.Models;
+﻿using BookingSystem.Domain.Exceptions.CarExceptions;
+using BookingSystem.Domain.Models;
 using BookingSystem.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +27,19 @@ public class CarController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var car = await _repository.GetByIdAsync(id);
-        return StatusCode(200, car);
+        try
+        {
+            var car = await _repository.GetByIdAsync(id);
+            return StatusCode(200, car);
+        }
+        catch (CarMissingException)
+        {
+            return StatusCode(404);
+        }
+        catch(Exception)
+        {
+            return StatusCode(404);
+        }
     }
 
     [HttpPost]
@@ -40,16 +52,38 @@ public class CarController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] Car car)
     {
-        await _repository.UpdateAsync(car);
-        return StatusCode(200, car);
+        try
+        {
+            await _repository.UpdateAsync(car);
+            return StatusCode(200, car);
+        }
+        catch (CarMissingException) 
+        {
+            return StatusCode(404);
+        }
+        catch (Exception)
+        {
+            return StatusCode(404);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var car = await _repository.GetByIdAsync(id);
-        car.IsDeleted = true;
-        await _repository.UpdateAsync(car);
-        return StatusCode(200, car);
+        try
+        {
+            var car = await _repository.GetByIdAsync(id);
+            car.IsDeleted = true;
+            await _repository.UpdateAsync(car);
+            return StatusCode(200, car);
+        }
+        catch (CarMissingException)
+        {
+            return StatusCode(404);
+        }
+        catch (Exception)
+        {
+            return StatusCode(404);
+        }
     }
 }

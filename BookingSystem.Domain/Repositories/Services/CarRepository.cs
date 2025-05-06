@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BookingSystem.Domain.Models;
 using BookingSystem.Domain.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BookingSystem.Domain.Exceptions.CarExceptions;
 
 namespace BookingSystem.Domain.Repositories.Services;
 
@@ -33,12 +34,17 @@ public class CarRepository : ICarRepository
 
     public async Task<Car> GetByIdAsync(int id)
     {
-        return await _context.Cars.FirstOrDefaultAsync(c => c.Id == id) ?? throw new Exception("Car not found");
+        return await _context.Cars.FirstOrDefaultAsync(c => c.Id == id) ?? throw new CarMissingException();
     }
 
     public async Task<Car> UpdateAsync(Car car)
     {
+        var exsitingCar = await _context.Cars.FirstOrDefaultAsync(c => c.Id == car.Id);
+        if (exsitingCar == null)
+            throw new CarMissingException();
+        
         _context.Cars.Update(car);
+
         await _context.SaveChangesAsync();
         return car;
     }
